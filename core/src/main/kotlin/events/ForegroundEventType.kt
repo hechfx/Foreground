@@ -8,11 +8,12 @@ enum class ForegroundEventType(val raw: String) {
     TOMBSTONE("#tombstone");
 
     companion object {
-        fun from(raw: String): ForegroundEventType {
+        fun from(raw: String): ForegroundEventType? {
             return try {
                 entries.first { it.raw == raw }
             } catch (e: NoSuchElementException) {
-                throw NoSuchElementException("ForegroundEventType not found for '$raw'")
+                println("ForegroundEventType not found for '$raw'")
+                null
             }
         }
     }

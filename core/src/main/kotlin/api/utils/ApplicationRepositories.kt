@@ -1,6 +1,6 @@
-package me.hechfx.foreground.core.events.vanilla.commit
+package me.hechfx.foreground.core.gateway.api.utils
 
-enum class CommitType(val raw: String) {
+enum class ApplicationRepositories(val raw: String) {
     LIKE("app.bsky.feed.like"),
     POST("app.bsky.feed.post"),
     REPOST("app.bsky.feed.repost"),
@@ -8,6 +8,7 @@ enum class CommitType(val raw: String) {
     DECLARATION("app.bsky.actor.declaration"),
     GENERATOR("app.bsky.feed.generator"),
     CHAT_DECLARATION("chat.bsky.actor.declaration"),
+    EMBED_RECORD("app.bsky.embed.record"),
     LIST("app.bsky.graph.list"),
     LIST_ITEM("app.bsky.graph.listitem"),
     LIST_BLOCK("app.bsky.graph.listblock"),
@@ -15,18 +16,22 @@ enum class CommitType(val raw: String) {
     STARTER_PACK("app.bsky.graph.starterpack"),
     POSTGATE("app.bsky.feed.postgate"),
     BLOCK("app.bsky.graph.block"),
-    FOLLOW("app.bsky.graph.follow");
+    FOLLOW("app.bsky.graph.follow"),
+    BLOG_ENTRY("com.whtwnd.blog.entry"),
+    LABELER_SERVICE("app.bsky.labeler.service");
 
     companion object {
-        fun from(raw: String): CommitType {
-            return try {
-                CommitType.entries.first { it.raw == raw }
+        fun from(raw: String): ApplicationRepositories? {
+            try {
+                return ApplicationRepositories.entries.first { it.raw == raw }
             } catch (e: NoSuchElementException) {
-                throw NoSuchElementException("CommitType not found for '$raw'")
+                println("ApplicationRepositories not found for '$raw'")
             }
+
+            return null
         }
 
-        fun fromOrNull(raw: String): CommitType? {
+        fun fromOrNull(raw: String): ApplicationRepositories? {
             return try {
                 from(raw)
             } catch (e: NoSuchElementException) {

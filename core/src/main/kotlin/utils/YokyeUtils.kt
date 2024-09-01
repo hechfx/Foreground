@@ -7,7 +7,9 @@ import java.io.*
  * @author MrPowerGamerBR
  */
 object YokyeUtils {
-    fun parseCAR(input: InputStream): MutableList<CBORObject> {
+    fun parseCAR(input: InputStream?): MutableList<CBORObject> {
+        if (input == null) return mutableListOf()
+
         input.use {
             val headerLength = readUnsignedLEB128VarInt(it)
             // println("version: $headerLength")

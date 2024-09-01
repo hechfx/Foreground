@@ -37,4 +37,34 @@ sealed class ContentType {
             }
         }
     }
+
+    class RepostContent(raw: CBORObject) : ContentType()
+
+    class ProfileContent(raw: CBORObject) : ContentType()
+
+    class ChatDeclarationContent(raw: CBORObject) : ContentType()
+
+    class BlockContent(raw: CBORObject) : ContentType()
+
+    class ListItemContent(raw: CBORObject) : ContentType()
+
+    class ListBlockContent(raw: CBORObject) : ContentType()
+
+    class StarterPackContent(raw: CBORObject) : ContentType()
+
+    class PostGateContent(raw: CBORObject) : ContentType()
+
+    class ThreadGateContent(raw: CBORObject) : ContentType()
+
+    class ListContent(raw: CBORObject) : ContentType()
+
+    class DeclarationContent(raw: CBORObject) : ContentType()
+
+    class GeneratorContent(raw: CBORObject) : ContentType()
+
+    class EmbedRecordContent(raw: CBORObject) : ContentType()
+
+    class BlogEntryContent(raw: CBORObject) : ContentType()
+
+    class LabelerServiceContent(raw: CBORObject) : ContentType()
 }

@@ -1,4 +1,4 @@
-package me.hechfx.foreground.core.data
+package me.hechfx.foreground.core.gateway.api.payloads
 
 import kotlinx.serialization.*
 
