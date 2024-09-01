@@ -12,7 +12,6 @@ dependencyResolutionManagement {
     }
 }
 
-
 include("core")
 include("example-bot")
 
