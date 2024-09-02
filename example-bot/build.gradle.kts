@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm")
+    alias(libs.plugins.shadow) apply true
 }
 
 repositories {
@@ -18,7 +19,7 @@ dependencies {
 }
 
 tasks {
-    val shadowJar by getting(com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar::class) {
+    shadowJar {
         archiveBaseName.set("example-bot")
         archiveClassifier.set("")
         archiveVersion.set("")
