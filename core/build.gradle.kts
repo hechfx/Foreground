@@ -12,7 +12,8 @@ dependencies {
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.serialization.kotlinx.json)
 
-    implementation(libs.slf4j.simple)
+    implementation(libs.slf4j.api)
+    implementation(libs.logback.classic)
     implementation(libs.kotlin.logging)
 
     implementation(libs.kotlinx.serialization.json)

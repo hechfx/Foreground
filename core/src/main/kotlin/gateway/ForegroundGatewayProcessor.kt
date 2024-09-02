@@ -13,16 +13,14 @@ import me.hechfx.foreground.core.utils.*
 import java.io.InputStream
 
 class ForegroundGatewayProcessor(val client: ForegroundWebSocketClient) {
-    suspend fun process(raw: String, inputStream: InputStream) {
+    suspend fun process(raw: String, obj: CBORObject) {
         when (ForegroundEventType.from(raw)) {
             /**
              * Fired when the user do something in the platform, like a post, like, follow, etc.
              */
             ForegroundEventType.COMMIT -> {
                 client.events.emit(
-                    CommitEvent(
-                        CBORObject.Read(inputStream)
-                    )
+                    CommitEvent(obj)
                 )
             }
             /**
@@ -30,9 +28,7 @@ class ForegroundGatewayProcessor(val client: ForegroundWebSocketClient) {
              */
             ForegroundEventType.IDENTITY -> {
                 client.events.emit(
-                    IdentityEvent(
-                        CBORObject.Read(inputStream)
-                    )
+                    IdentityEvent(obj)
                 )
             }
 
@@ -41,9 +37,7 @@ class ForegroundGatewayProcessor(val client: ForegroundWebSocketClient) {
              */
             ForegroundEventType.ACCOUNT -> {
                 client.events.emit(
-                    AccountEvent(
-                        CBORObject.Read(inputStream)
-                    )
+                    AccountEvent(obj)
                 )
             }
 
@@ -52,9 +46,7 @@ class ForegroundGatewayProcessor(val client: ForegroundWebSocketClient) {
              */
             ForegroundEventType.HANDLE -> {
                 client.events.emit(
-                    HandleEvent(
-                        CBORObject.Read(inputStream)
-                    )
+                    HandleEvent(obj)
                 )
             }
 
@@ -63,9 +55,7 @@ class ForegroundGatewayProcessor(val client: ForegroundWebSocketClient) {
              */
             ForegroundEventType.TOMBSTONE -> {
                 client.events.emit(
-                    TombstoneEvent(
-                        CBORObject.Read(inputStream)
-                    )
+                    TombstoneEvent(obj)
                 )
             }
 

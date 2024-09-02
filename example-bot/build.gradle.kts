@@ -9,6 +9,10 @@ repositories {
 dependencies {
     implementation(project(":core"))
 
+    implementation(libs.slf4j.api)
+    implementation(libs.logback.classic)
+    implementation(libs.kotlin.logging)
+
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.serialization.hocon)
 }
