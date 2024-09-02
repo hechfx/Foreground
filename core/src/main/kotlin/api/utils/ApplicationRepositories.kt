@@ -18,6 +18,7 @@ enum class ApplicationRepositories(val raw: String) {
     BLOCK("app.bsky.graph.block"),
     FOLLOW("app.bsky.graph.follow"),
     BLOG_ENTRY("com.whtwnd.blog.entry"),
+    POUCH_LINK("com.habitat.pouch.link"),
     LABELER_SERVICE("app.bsky.labeler.service");
 
     companion object {
