@@ -85,7 +85,7 @@ class ForegroundWebSocketClient(
                         val t = header["t"]?.AsString()
 
                         if (op == -1) {
-                            logger.warn { "Received -1 op, it's an error. Let's re-do the connection." }
+                            logger.warn { "Received -1 op, it's an error. Let's re-do the connection..." }
                             cancel()
                             return@ws
                         }
