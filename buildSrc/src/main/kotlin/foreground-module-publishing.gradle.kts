@@ -7,7 +7,7 @@ plugins {
 tasks {
     publishing {
         publications {
-            create<MavenPublication>("Foreground") {
+            register<MavenPublication>("gpr") {
                 groupId = Library.Group
                 version = Library.Version
 
@@ -41,6 +41,7 @@ tasks {
 
                 repositories {
                     maven {
+                        name = "GitHubPackages"
                         url = uri("https://maven.pkg.github.com/hechfx/Foreground")
 
                         credentials {
@@ -52,8 +53,4 @@ tasks {
             }
         }
     }
-}
-
-signing {
-    sign(publishing.publications["Foreground"])
 }
