@@ -8,8 +8,7 @@ import me.hechfx.foreground.core.gateway.api.utils.*
 class MajorListener(val m: ExampleBot) {
     suspend fun listen() = m.client.on<CommitEvent> {
         val trackUsers = listOf(
-            "did:plc:tpkrh3jv67mebzcq5xdstq65",
-            "did:plc:sjxjio2cekseh2j5blxvidxk"
+            "did:plc:tpkrh3jv67mebzcq5xdstq65"
         )
 
         if (content != null) {

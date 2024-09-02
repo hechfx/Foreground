@@ -2,6 +2,7 @@
 kotlin = "2.0.0"
 ktor = "2.3.12"
 coroutines = "1.8.1"
+shadowJar = "8.1.1"
 
 codec = "1.15"
 cbor = "5.0.0-alpha2"
@@ -32,3 +33,4 @@ commons-codec = { module = "commons-codec:commons-codec", version.ref = "codec" 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadowJar" }

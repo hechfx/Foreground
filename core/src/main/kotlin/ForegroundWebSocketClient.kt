@@ -78,9 +78,9 @@ class ForegroundWebSocketClient(
                         GlobalScope.launch {
                             if (System.currentTimeMillis() - lastResponseTime > 5000 && lastResponseTime != 0L) {
                                 logger.warn { "Connection is idle for more than 5 seconds! Reconnecting..." }
-                                bsSession = null
                                 lastResponseTime = 0L
                                 shutdownSession()
+                                delay(1000L)
                                 connect()
                                 cancel("Cancelling coroutine to avoid stacking...")
                             }
@@ -107,7 +107,6 @@ class ForegroundWebSocketClient(
                             val message = header.get("message")?.AsString()
 
                             logger.warn("$error; $message") { "Received -1 op, it's an error. Let's re-do the connection." }
-                            bsSession = null
                             return@webSocket
                         }
 
@@ -119,7 +118,6 @@ class ForegroundWebSocketClient(
             }
         } catch (e: Exception) {
             logger.warn(e) { "Failed to connect to BlueSky's WebSocket!" }
-            bsSession = null
         }
 
         val delay = (2.0.pow(connectionTries.toDouble()) * 1_000).toLong()

@@ -25,8 +25,6 @@ class ForegroundAPIHandler(val m: ForegroundWebSocketClient) {
      * @param password The user's password
      */
     suspend fun createSession(identifier: String, password: String): Session? {
-        if (m.bsSession != null) throw SessionAlreadyExistsException("You already have a session!")
-
         val response = request<SessionPayload>(
             method = HttpMethod.Post,
             lexicon = APILexicons.CREATE_SESSION,
