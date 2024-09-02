@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm")
+    `foreground-module-publishing`
 }
 
 repositories {
