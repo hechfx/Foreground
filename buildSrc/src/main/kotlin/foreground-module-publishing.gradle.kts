@@ -5,19 +5,6 @@ plugins {
 }
 
 tasks {
-    val sourcesJar by registering(Jar::class) {
-        archiveClassifier.set("sources")
-        from(sourceSets.main.get().allSource)
-    }
-
-    val docsJar by registering(Jar::class) {
-        group = JavaBasePlugin.DOCUMENTATION_GROUP
-        description = "Javadocs"
-        archiveExtension.set("javadoc")
-        from(javadoc)
-        dependsOn(javadoc)
-    }
-
     publishing {
         publications {
             create<MavenPublication>("Foreground") {
@@ -25,12 +12,10 @@ tasks {
                 version = Library.Version
 
                 from(components["java"])
-                artifact(sourcesJar.get())
-                artifact(docsJar.get())
 
                 pom {
                     name.set("Foreground")
-                    description.set("A powerful and simple-to-use BlueSky wrapper made in Kotlin. ")
+                    description.set("A simple-to-use BlueSky wrapper made in Kotlin. ")
                     url.set("https://github.com/hechfx/Foreground")
 
                     developers {
@@ -55,9 +40,11 @@ tasks {
                 }
 
                 repositories {
-                    maven("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                    maven {
+                        url = uri("https://maven.pkg.github.com/hechfx/Foreground")
+
                         credentials {
-                            username = System.getenv("GITHUB_USER")
+                            username = System.getenv("GITHUB_USERNAME")
                             password = System.getenv("GITHUB_TOKEN")
                         }
                     }
