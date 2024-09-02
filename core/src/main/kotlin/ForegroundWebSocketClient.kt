@@ -36,7 +36,7 @@ class ForegroundWebSocketClient(
 
     val client = HttpClient(CIO) {
         install(WebSockets) {
-            pingInterval = 5_000
+            pingInterval = 30_000
         }
         install(ContentNegotiation) {
             json(json = Json {
@@ -82,10 +82,11 @@ class ForegroundWebSocketClient(
                         val frameInputStream = frame.readBytes().inputStream()
                         val header = CBORObject.Read(frameInputStream)
                         val op = header["op"].AsInt32()
-                        val t = header["t"].AsString()
+                        val t = header["t"]?.AsString()
 
                         if (op == -1) {
                             logger.warn { "Received -1 op, it's an error. Let's re-do the connection." }
+                            cancel()
                             return@ws
                         }
 
@@ -98,7 +99,9 @@ class ForegroundWebSocketClient(
                         if (body["tooBig"]?.AsBoolean() == true)
                             continue
 
-                        gatewayProcessor.process(t, body)
+                        if (t != null) {
+                            gatewayProcessor.process(t, body)
+                        }
                     } else {
                         logger.warn { "Received a non-binary frame!" }
                     }

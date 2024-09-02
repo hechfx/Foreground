@@ -77,8 +77,6 @@ class ForegroundAPIHandler(val m: ForegroundWebSocketClient) {
         val collection = begin.split("/")[1]
         val rKey = begin.split("/")[2]
 
-        println(uri)
-
         val params = mapOf(
             "repo" to author,
             "collection" to collection,
