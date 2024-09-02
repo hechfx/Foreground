@@ -17,7 +17,7 @@ subprojects {
     apply(plugin = "maven-publish")
 
     group = "me.hechfx"
-    version = "0.0.1"
+    version = "0.0.1.1"
 
     dependencies {
         implementation(kotlin("stdlib"))
