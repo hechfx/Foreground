@@ -67,4 +67,6 @@ sealed class ContentType {
     class BlogEntryContent(raw: CBORObject) : ContentType()
 
     class LabelerServiceContent(raw: CBORObject) : ContentType()
+
+    class TODOContent(raw: CBORObject) : ContentType()
 }

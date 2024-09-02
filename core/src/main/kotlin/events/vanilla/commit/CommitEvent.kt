@@ -55,6 +55,7 @@ class CommitEvent(raw: CBORObject) : ForegroundEvent() {
             ApplicationRepositories.EMBED_RECORD -> ContentType.EmbedRecordContent(it)
             ApplicationRepositories.BLOG_ENTRY -> ContentType.BlogEntryContent(it)
             ApplicationRepositories.LABELER_SERVICE -> ContentType.LabelerServiceContent(it)
+            ApplicationRepositories.POUCH_LINK -> ContentType.TODOContent(it)
             null -> null
         }
     }.firstOrNull()
