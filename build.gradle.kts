@@ -6,20 +6,31 @@ plugins {
 }
 
 allprojects {
+    group = Library.Group
+    version = Library.Version
+
     repositories {
         mavenCentral()
     }
 }
 
 subprojects {
-    group = Library.Group
-    version = Library.Version
-
-    apply(plugin = "org.jetbrains.kotlin.jvm")
-    apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
     apply<MavenPublishPlugin>()
 
-    dependencies {
-        implementation(kotlin("stdlib"))
+    if (project.name != "example-bot") {
+        version = Library.Version
+
+        publishing {
+            repositories {
+                maven {
+                    name = "PerfectDreams"
+                    url = uri("https://repo.perfectdreams.net/")
+                    credentials {
+                        username = System.getenv("PERFECTDREAMS_USERNAME") ?: ""
+                        password = System.getenv("PERFECTDREAMS_PASSWORD") ?: ""
+                    }
+                }
+            }
+        }
     }
 }

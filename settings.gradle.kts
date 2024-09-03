@@ -12,6 +12,6 @@ dependencyResolutionManagement {
     }
 }
 
-include("core")
+include("foreground-core")
 include("example-bot")
 

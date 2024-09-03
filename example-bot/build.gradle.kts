@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm")
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.shadow) apply true
 }
 
@@ -8,7 +9,7 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":core"))
+    implementation(project(":foreground-core"))
 
     implementation(libs.slf4j.api)
     implementation(libs.logback.classic)
@@ -28,7 +29,7 @@ tasks {
             attributes["Main-Class"] = "me.hechfx.bot.ExampleBotLauncher"
         }
 
-        from(project(":core").sourceSets["main"].output)
+        from(project(":foreground-core").sourceSets["main"].output)
         mergeServiceFiles()
     }
 }
