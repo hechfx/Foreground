@@ -22,9 +22,3 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           arguments: --stacktrace --info build
-
-      - uses: actions/upload-artifact@v2
-        name: Upload Core
-        with:
-          name: Core
-          path: core/build/libs/
