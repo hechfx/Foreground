@@ -1,4 +1,4 @@
-<h1 style="text-align: center;">🦋 Foreground 🦋</h1>
+<h1 align="center">🦋 Foreground 🦋</h1>
 
 A simple [BlueSky](https://bsky.app) wrapper that allows to create automations and bots for the platform.
 
