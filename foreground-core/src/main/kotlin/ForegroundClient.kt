@@ -108,6 +108,22 @@ class ForegroundClient(optionsBuilder: ForegroundClientOptionsBuilder.() -> Unit
                         }
                     }
 
+                    // we need to keep the session alive!
+                    launch {
+                        while (true) {
+                            delay(1_800_000) // 30 minutes
+                            logger.info { "Verifying if the session is expired..." }
+                            val currentSession = api.getSession()
+
+                            if (currentSession == null) {
+                                logger.warn { "The session is expired! Refreshing..." }
+                                api.refreshSession()
+                            }
+
+                            delay(1_000)
+                        }
+                    }
+
                     for (frame in incoming) {
                         try {
                             when (frame) {

@@ -13,6 +13,7 @@ import kotlinx.serialization.json.*
 import me.hechfx.foreground.core.gateway.*
 import me.hechfx.foreground.core.gateway.api.entity.post.BlueSkyPost
 import me.hechfx.foreground.core.gateway.api.entity.post.builders.BlueSkyNewPostBuilder
+import me.hechfx.foreground.core.gateway.api.entity.session.BlueSkyPartialSession
 import me.hechfx.foreground.core.gateway.api.entity.session.BlueSkySession
 import me.hechfx.foreground.core.gateway.api.exceptions.*
 import me.hechfx.foreground.core.gateway.api.utils.*
@@ -34,6 +35,7 @@ class BlueSkyAPIWrapper(private val m: ForegroundClient) {
      * Create a new session to the BlueSky's API; Giving access to auth required lexicons.
      * @param identifier The user's identifier (e-mail or @)
      * @param password The user's password
+     * @return The session created
      */
     suspend fun createSession(identifier: String, password: String): BlueSkySession? {
         val response = try {
@@ -53,7 +55,57 @@ class BlueSkyAPIWrapper(private val m: ForegroundClient) {
         return if (response != null) {
             m.blueSkySession = response
 
-            m.blueSkySession!!
+            m.blueSkySession
+        } else {
+            null
+        }
+    }
+
+    /**
+     * Get the current session
+     * @return The current session
+     */
+    suspend fun getSession(): BlueSkyPartialSession? {
+        if (m.blueSkySession == null) throw InvalidAPIRequestException("You need to create a session first!", BlueSkyAPILexicons.GET_SESSION.raw, "")
+
+        val response = try {
+            request<BlueSkyPartialSession>(
+                method = HttpMethod.Get,
+                lexicon = BlueSkyAPILexicons.GET_SESSION,
+                auth = true
+            )
+        } catch (e: Exception) {
+            logger.warn(e) { "Error while getting session from BlueSky's API" }
+            null
+        }
+
+        return response
+    }
+
+    /**
+     * Refresh the current session
+     * @return The new session
+     */
+    suspend fun refreshSession(): BlueSkySession? {
+        if (m.blueSkySession == null) throw InvalidAPIRequestException("You need to create a session first!", BlueSkyAPILexicons.REFRESH_SESSION.raw, "")
+
+        val response = try {
+            request<BlueSkySession>(
+                method = HttpMethod.Get,
+                lexicon = BlueSkyAPILexicons.REFRESH_SESSION,
+                headers = mapOf(
+                    HttpHeaders.Authorization to "Bearer ${m.blueSkySession!!.refreshToken}"
+                )
+            )
+        } catch (e: Exception) {
+            logger.warn(e) { "Error while refreshing session from BlueSky's API" }
+            null
+        }
+
+        return if (response != null) {
+            m.blueSkySession = response
+
+            m.blueSkySession
         } else {
             null
         }
@@ -127,8 +179,8 @@ class BlueSkyAPIWrapper(private val m: ForegroundClient) {
                 this.method = method
 
                 if (body != null) {
-                    header(HttpHeaders.ContentType, "application/json")
                     setBody(body)
+                    header(HttpHeaders.ContentType, "application/json")
                 }
 
                 if (auth && m.blueSkySession != null)
