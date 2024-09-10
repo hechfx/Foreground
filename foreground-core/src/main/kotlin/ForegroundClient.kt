@@ -134,7 +134,6 @@ class ForegroundClient(optionsBuilder: ForegroundClientOptionsBuilder.() -> Unit
 
                                     lastEventReceivedAt = Instant.now()
 
-
                                     if (op == -1) {
                                         logger.warn { "Received -1 op, it's an error." }
                                     }

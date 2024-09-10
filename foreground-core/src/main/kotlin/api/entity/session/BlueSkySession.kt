@@ -8,9 +8,9 @@ data class BlueSkySession(
     val did: String,
     val didDoc: DidDocPayload,
     val handle: String,
-    val email: String,
-    val emailConfirmed: Boolean,
-    val emailAuthFactor: Boolean,
+    val email: String? = null,
+    val emailConfirmed: Boolean? = null,
+    val emailAuthFactor: Boolean? = null,
     @SerialName("accessJwt")
     val accessToken: String,
     @SerialName("refreshJwt")

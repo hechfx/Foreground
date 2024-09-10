@@ -89,26 +89,25 @@ class BlueSkyAPIWrapper(private val m: ForegroundClient) {
     suspend fun refreshSession(): BlueSkySession? {
         if (m.blueSkySession == null) throw InvalidAPIRequestException("You need to create a session first!", BlueSkyAPILexicons.REFRESH_SESSION.raw, "")
 
-        val response = try {
-            request<BlueSkySession>(
-                method = HttpMethod.Get,
-                lexicon = BlueSkyAPILexicons.REFRESH_SESSION,
-                headers = mapOf(
-                    HttpHeaders.Authorization to "Bearer ${m.blueSkySession!!.refreshToken}"
-                )
-            )
-        } catch (e: Exception) {
-            logger.warn(e) { "Error while refreshing session from BlueSky's API" }
-            null
-        }
+        logger.info { "Trying to request with the refreshToken: '${m.blueSkySession!!.refreshToken}'" }
 
-        return if (response != null) {
+        val response = request<BlueSkySession>(
+            method = HttpMethod.Post,
+            lexicon = BlueSkyAPILexicons.REFRESH_SESSION,
+            headers = mapOf(
+                HttpHeaders.Authorization to "Bearer ${m.blueSkySession!!.refreshToken}"
+            )
+        )
+
+        if (response != null) {
+            logger.info { "Successfully refreshed session!" }
+
             m.blueSkySession = response
 
-            m.blueSkySession
-        } else {
-            null
+            return response
         }
+
+        return null
     }
 
     /**
@@ -203,7 +202,7 @@ class BlueSkyAPIWrapper(private val m: ForegroundClient) {
             response.body<T>()
         } catch (e: Exception) {
             logger.error(e) { "Error while requesting to BlueSky's API; $bodyError" }
-            null
+            throw e
         }
     }
 }
