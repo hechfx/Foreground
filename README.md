@@ -2,7 +2,7 @@
 
 A simple [BlueSky](https://bsky.app) wrapper that allows to create automations and bots for the platform.
 
-Current version is `1.0.2`
+Current version is `1.0.3`
 
 ## Installation
 
