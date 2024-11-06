@@ -27,7 +27,7 @@ class CommitEvent(raw: CBORObject) : BlueSkyEvent() {
     }
 
     val rev = raw["rev"]?.AsString()
-    val seq = raw["seq"]?.AsInt32()
+    val seq = raw["seq"]?.AsInt64Value()
     val author = raw["repo"]?.AsString()
     val time = raw["time"]?.AsString()?.let { Instant.parse(it) }
 
