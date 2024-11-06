@@ -7,6 +7,6 @@ class IdentityEvent(raw: CBORObject) : BlueSkyEvent() {
     override val INTERNAL_NAME = "#identity"
 
     val did = raw["did"].AsString()
-    val seq = raw["seq"].AsInt32()
+    val seq = raw["seq"].AsInt64Value()
     val handle = raw["handle"].AsString()
 }

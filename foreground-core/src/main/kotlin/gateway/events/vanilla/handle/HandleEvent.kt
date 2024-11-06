@@ -8,7 +8,7 @@ class HandleEvent(raw: CBORObject) : BlueSkyEvent() {
     override val INTERNAL_NAME = "#handle"
 
     val did = raw["did"].AsString()
-    val seq = raw["seq"].AsInt32()
+    val seq = raw["seq"].AsInt64Value()
     val time = Instant.parse(raw["time"].AsString())
     val handle = raw["handle"].AsString()
 }

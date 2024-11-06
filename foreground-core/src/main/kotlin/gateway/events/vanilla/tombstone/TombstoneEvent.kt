@@ -7,6 +7,6 @@ class TombstoneEvent(raw: CBORObject) : BlueSkyEvent() {
     override val INTERNAL_NAME = "#tombstone"
 
     val did = raw["did"].AsString()
-    val seq = raw["seq"].AsInt32()
+    val seq = raw["seq"].AsInt64Value()
     val time = raw["time"].AsString()
 }
